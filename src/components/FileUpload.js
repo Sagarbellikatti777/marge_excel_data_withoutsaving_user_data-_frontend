@@ -11,7 +11,7 @@ const FileUpload = () => {
 
   const handleUpload = async () => {
     if (files.length === 0) {
-      alert('Please select Excel files (.xlsx)');
+      alert('Please select ZIP files containing Excel sheets');
       return;
     }
 
@@ -20,10 +20,10 @@ const FileUpload = () => {
       formData.append('files', files[i]);
     }
 
-    setStatus('Uploading and merging files...');
+    setStatus('Uploading and merging Excel files from ZIPs...');
 
     try {
-      const response = await axios.post('https://marge-excel-data-withoutsaving-user-data.onrender.com/api/merge', formData, {
+      const response = await axios.post('http://localhost:5000/api/merge', formData, {
         responseType: 'blob',
         headers: { 'Content-Type': 'multipart/form-data' }
       });
@@ -40,22 +40,22 @@ const FileUpload = () => {
       setStatus('Merged file downloaded successfully!');
     } catch (error) {
       console.error(error);
-      setStatus('Failed to merge Excel files.');
+      setStatus('Failed to merge Excel files from ZIPs.');
     }
   };
 
   return (
     <div className="card p-4 shadow">
-      <h3 className="mb-3 text-center">📊 Merge Multiple Excel Files</h3>
+      <h3 className="mb-3 text-center">📦 Upload ZIP Files (Each with Excel)</h3>
       <input
         type="file"
         className="form-control"
         multiple
-        accept=".xlsx"
+        accept=".zip"
         onChange={handleFileChange}
       />
       <button className="btn btn-primary mt-3" onClick={handleUpload}>
-        Merge Excel Files
+        Merge Excel Files from ZIPs
       </button>
       {status && <p className="mt-3 alert alert-info">{status}</p>}
     </div>
