@@ -23,7 +23,7 @@ const FileUpload = () => {
     setStatus('Uploading and merging Excel files from ZIPs...');
 
     try {
-      const response = await axios.post('https://marge-excel-data-withoutsaving-user-data.onrender.com/api/merge', formData, {
+      const response = await axios.post('https://excel-data-merge-backend.onrender.com/api/merge', formData, {
         responseType: 'blob',
         headers: { 'Content-Type': 'multipart/form-data' }
       });
