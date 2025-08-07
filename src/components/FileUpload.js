@@ -27,7 +27,7 @@ const FileUpload = () => {
     setStatus('Uploading and merging Excel files from ZIPs...');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/merge', formData, {
+      const response = await axios.post('https://excel-data-merge-backend.onrender.com/api/merge', formData, {
         responseType: 'blob',
         headers: { 'Content-Type': 'multipart/form-data' },
       });
