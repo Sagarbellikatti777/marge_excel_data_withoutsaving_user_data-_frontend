@@ -1,0 +1,9 @@
+.card {
+  max-width: 500px;
+  margin: auto;
+  border-radius: 12px;
+}
+
+h3 {
+  font-weight: 600;
+}
