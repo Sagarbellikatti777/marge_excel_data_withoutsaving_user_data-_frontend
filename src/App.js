@@ -19,7 +19,7 @@ export default function UploadMerge() {
     files.forEach((f) => form.append('files', f));
 
     try {
-      const response = await axios.post('http://localhost:4000/merge', form, {
+      const response = await axios.post('https://excel-data-merge-backend.onrender.com/merge', form, {
         responseType: 'blob',
         onUploadProgress: (evt) => {
           if (evt.total) {
