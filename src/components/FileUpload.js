@@ -9,9 +9,20 @@ const FileUpload = () => {
   const [loading, setLoading] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [timer, setTimer] = useState(null);
+  const [timeoutError, setTimeoutError] = useState(false);
 
   const handleFileChange = (e) => {
-    setFiles(e.target.files);
+    const selectedFiles = Array.from(e.target.files);
+    
+    // Validate files to ensure they are all ZIP files
+    const validFiles = selectedFiles.filter(file => file.name.endsWith('.zip'));
+    
+    if (validFiles.length !== selectedFiles.length) {
+      alert("Only ZIP files are allowed.");
+      return;
+    }
+
+    setFiles(validFiles);
   };
 
   const startTimer = () => {
@@ -36,6 +47,7 @@ const FileUpload = () => {
     setLoading(true);
     setStatus('Uploading and merging Excel files...');
     setElapsedTime(0); // Reset timer
+    setTimeoutError(false); // Reset timeout error flag
 
     startTimer(); // Start the timer
 
@@ -62,6 +74,7 @@ const FileUpload = () => {
       clearInterval(timer); // Stop the timer on error
       console.error(error);
       if (error.code === 'ECONNABORTED') {
+        setTimeoutError(true);
         setStatus('❌ Request timed out. Please try again.');
       } else {
         setStatus('❌ Failed to merge Excel files from ZIPs.');
@@ -70,6 +83,12 @@ const FileUpload = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (timeoutError) {
+      alert("The request took too long. Please try again after some time.");
+    }
+  }, [timeoutError]);
 
   return (
     <div className="container mt-5">
@@ -107,12 +126,14 @@ const FileUpload = () => {
           {loading && (
             <>
               <div className="progress mt-3">
-                <div className="progress-bar progress-bar-striped progress-bar-animated" 
-                     role="progressbar" 
-                     style={{ width: `${(elapsedTime / 120).toFixed(2)}%` }} 
-                     aria-valuenow={elapsedTime} 
-                     aria-valuemin="0" 
-                     aria-valuemax="100"></div>
+                <div
+                  className="progress-bar progress-bar-striped progress-bar-animated"
+                  role="progressbar"
+                  style={{ width: `${(elapsedTime / 120).toFixed(2)}%` }}
+                  aria-valuenow={elapsedTime}
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
               </div>
               <div className="text-center mt-2">
                 <strong>Processing Time: </strong> {elapsedTime} seconds
