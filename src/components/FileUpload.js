@@ -40,7 +40,7 @@ const FileUpload = () => {
     startTimer(); // Start the timer
 
     try {
-      const response = await axios.post('http://localhost:5000/api/merge', formData, {
+      const response = await axios.post('https://excel-data-merge-backend.onrender.com/api/merge', formData, {
         responseType: 'blob',
         headers: { 'Content-Type': 'multipart/form-data' },
         timeout: 120000, // Set timeout (2 minutes)
