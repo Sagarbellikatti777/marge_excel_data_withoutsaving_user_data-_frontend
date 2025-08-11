@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './FileUpload.css'; // Optional custom styling for additional tweaks
+import './FileUpload.css'; // Custom CSS for additional tweaks
 
 const FileUpload = () => {
   const [files, setFiles] = useState([]);
@@ -11,7 +11,6 @@ const FileUpload = () => {
   const [timer, setTimer] = useState(null);
   const [timeoutError, setTimeoutError] = useState(false);
 
-  // File change handler to accept only .zip files
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
     
@@ -26,7 +25,6 @@ const FileUpload = () => {
     setFiles(validFiles);
   };
 
-  // Timer to track time elapsed during the file upload
   const startTimer = () => {
     const startTime = Date.now();
     setTimer(setInterval(() => {
@@ -35,7 +33,6 @@ const FileUpload = () => {
     }, 100));
   };
 
-  // File upload handler to post files to backend and handle responses
   const handleUpload = async () => {
     if (files.length === 0) {
       alert('Please select ZIP files containing Excel sheets');
@@ -89,7 +86,6 @@ const FileUpload = () => {
     }
   };
 
-  // UseEffect hook to show alert when timeout occurs
   useEffect(() => {
     if (timeoutError) {
       alert("The request took too long. Please try again after some time.");
@@ -98,7 +94,7 @@ const FileUpload = () => {
 
   return (
     <div className="container mt-5">
-      <div className="card p-5 shadow-lg rounded">
+      <div className="card p-5 shadow-lg rounded glass-effect">
         <h3 className="text-center text-primary mb-4">📦 Merge ZIP Files Containing Excel Sheets</h3>
 
         <div className="mb-3">

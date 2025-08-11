@@ -38,3 +38,52 @@ input[type="file"] {
   padding: 10px;
   font-weight: bold;
 }
+
+/* FileUpload.css */
+
+/* Glass Effect */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1); /* Transparent white background */
+  backdrop-filter: blur(10px); /* Blur effect */
+  border-radius: 10px; /* Rounded corners */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+}
+
+/* Waterdrop Background */
+body {
+  background-image: url('https://www.transparenttextures.com/patterns/asfalt.png'); /* Add subtle texture or water drop pattern */
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+}
+
+h3 {
+  font-family: 'Arial', sans-serif;
+  color: #1e90ff;
+}
+
+button {
+  border-radius: 50px; /* Round button */
+  font-weight: bold;
+}
+
+/* Progress Bar */
+.progress {
+  height: 20px;
+  border-radius: 10px;
+  background-color: #f3f3f3;
+}
+
+.progress-bar {
+  background-color: #4caf50;
+  transition: width 0.4s ease-in-out;
+}
+
