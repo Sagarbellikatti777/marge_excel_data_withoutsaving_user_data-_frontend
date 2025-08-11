@@ -11,6 +11,7 @@ const FileUpload = () => {
   const [timer, setTimer] = useState(null);
   const [timeoutError, setTimeoutError] = useState(false);
 
+  // File change handler to accept only .zip files
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
     
@@ -25,6 +26,7 @@ const FileUpload = () => {
     setFiles(validFiles);
   };
 
+  // Timer to track time elapsed during the file upload
   const startTimer = () => {
     const startTime = Date.now();
     setTimer(setInterval(() => {
@@ -33,6 +35,7 @@ const FileUpload = () => {
     }, 100));
   };
 
+  // File upload handler to post files to backend and handle responses
   const handleUpload = async () => {
     if (files.length === 0) {
       alert('Please select ZIP files containing Excel sheets');
@@ -52,10 +55,11 @@ const FileUpload = () => {
     startTimer(); // Start the timer
 
     try {
-      const response = await axios.post('https://excel-data-merge-backend.onrender.com/api/merge', formData, {
+      // Send the files to the backend for processing
+      const response = await axios.post('http://localhost:5000/api/merge', formData, {
         responseType: 'blob',
         headers: { 'Content-Type': 'multipart/form-data' },
-        timeout: 180000, // Set timeout (2 minutes)
+        timeout: 0, // Set timeout to 0 to disable the timeout (no limit)
       });
 
       clearInterval(timer); // Stop the timer once upload is complete
@@ -63,6 +67,7 @@ const FileUpload = () => {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });
 
+      // Create a download link for the merged Excel file
       const downloadUrl = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = downloadUrl;
@@ -84,6 +89,7 @@ const FileUpload = () => {
     }
   };
 
+  // UseEffect hook to show alert when timeout occurs
   useEffect(() => {
     if (timeoutError) {
       alert("The request took too long. Please try again after some time.");
